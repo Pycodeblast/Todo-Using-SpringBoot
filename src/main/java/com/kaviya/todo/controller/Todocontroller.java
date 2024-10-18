@@ -32,6 +32,7 @@ public class Todocontroller {
     // Get all todos
     @GetMapping  // Maps GET requests to this method
     public List<Todomodel> getAllTodos() {
+         // No parameters: This method fetches all todo items without needing any input from the client
         System.out.println("Fetching all todos...");  // Log the request
         List<Todomodel> todos = todoservice.getAllTodos();  // Fetch all todos using the service
         System.out.println("Fetched " + todos.size() + " todos.");  // Log the number of todos fetched
@@ -41,6 +42,7 @@ public class Todocontroller {
     // Get a todo by ID
     @GetMapping("/{id}")  // Maps GET requests with a specific ID to this method
     public ResponseEntity<Todomodel> getTodoById(@PathVariable String id) {
+        // @PathVariable String id: Extracts the todo item ID from the URL path
         System.out.println("Fetching todo with ID: " + id);  // Log the request
         return todoservice.getTodoById(id)  // Call the service to get the todo by ID
                 .map(todo -> {
@@ -56,6 +58,7 @@ public class Todocontroller {
     // Create a new todo
     @PostMapping  // Maps POST requests to this method
     public Todomodel createTodo(@RequestBody Todomodel todomodel) {
+         // @RequestBody Todomodel todomodel: Binds the incoming JSON request body to a Todomodel object for the new todo item
         System.out.println("Creating a new todo: " + todomodel);  // Log the new todo
         Todomodel createdTodo = todoservice.createTodo(todomodel);  // Create the todo using the service
         System.out.println("Created todo with ID: " + createdTodo.getId());  // Log the created todo ID
@@ -65,6 +68,9 @@ public class Todocontroller {
     // Update a todo
     @PutMapping("/{id}")  // Maps PUT requests with a specific ID to this method
     public ResponseEntity<Todomodel> updateTodo(@PathVariable String id, @RequestBody Todomodel todomodel) {
+         // @PathVariable String id: Extracts the todo item ID from the URL path for the item to be updated
+    // @RequestBody Todomodel todomodel: Binds the incoming JSON request body to a Todomodel object with updated data
+
         System.out.println("Updating todo with ID: " + id);  // Log the update request
         Todomodel updatedTodo = todoservice.updateTodo(id, todomodel);  // Update the todo using the service
         if (updatedTodo != null) {
@@ -78,9 +84,18 @@ public class Todocontroller {
     // Delete a todo
     @DeleteMapping("/{id}")  // Maps DELETE requests with a specific ID to this method
     public ResponseEntity<Void> deleteTodoById(@PathVariable String id) {
+        // @PathVariable String id: Extracts the todo item ID from the URL path for the item to be deleted
         System.out.println("Deleting todo with ID: " + id);  // Log the delete request
         todoservice.deleteTodoById(id);  // Delete the todo using the service
         System.out.println("Deleted todo with ID: " + id);  // Log the deletion
         return ResponseEntity.noContent().build();  // Return HTTP 204 (No Content)
     }
 }
+// In the getAllTodos method, we return List<Todomodel> directly for simplicity, 
+// as Spring automatically handles the conversion to JSON with a 200 status code. 
+// This approach is sufficient for straightforward scenarios where custom response handling isn't needed.
+
+// In ResponseEntity<Todomodel>, we pass Todomodel to indicate that the response body 
+// will contain a Todomodel instance, allowing the client to receive and understand 
+// the data related to the operation (e.g., details of the created or updated todo item).
+

@@ -17,6 +17,12 @@ For Simplicity: If your current application only requires standard CRUD operatio
 Why We Didn't Inject Mongotodorepo?
 For Future Scalability: If you anticipate adding more complex data access logic or possibly switching databases in the future, inject Mongotodorepo. This allows you to maintain a cleaner architecture and promotes better organization of your code.
 
+notes:
+ResponseEntity: Used for handling HTTP responses, allowing the specification of status codes (like 200, 404, 400) and returning results or messages along with the HTTP response.
+
+@RequestBody: Binds the incoming JSON request body to a method parameter, enabling the handling of complex data structures directly from the request body for easy data binding.
+
+@PathVariable: Extracts specific values from the URI, enabling the fetching of particular identifiers (like an ID) from the URL to perform operations on specific resources, such as retrieving or deleting a Todo item.
 
 
 

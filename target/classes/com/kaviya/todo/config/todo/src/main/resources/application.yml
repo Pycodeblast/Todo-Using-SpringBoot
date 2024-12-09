@@ -1,5 +1,0 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb+srv://kaviyamurugan29:kavcrud@kavyacrud.uldvvq0.mongodb.net/todo?retryWrites=true&w=majority&appName=kavyacrud
-      database: test
